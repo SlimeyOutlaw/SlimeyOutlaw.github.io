@@ -85,8 +85,8 @@ input[type="password"] {
 }
 
 .homeButton{
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 950px;
+  margin-top: 65px;
 }
 
 /* ---------- utility styles ---------- */
