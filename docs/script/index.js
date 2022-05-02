@@ -409,7 +409,7 @@ function renderLotSelectionTo(lots, host) {
         id: lot.uid,
         name: lot.name,
         text: lot.name,
-        class: "navigate-btn-lot-id",
+        class: "button navigate-btn-lot-id",
       })
     );
   });
