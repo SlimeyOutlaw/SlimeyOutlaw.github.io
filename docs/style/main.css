@@ -84,6 +84,11 @@ input[type="password"] {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+.homeButton{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ---------- utility styles ---------- */
 #notification {
   display: none;
