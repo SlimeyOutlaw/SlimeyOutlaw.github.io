@@ -245,7 +245,7 @@
         id="admin-requests-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span data-inner-admin-name>n/a</span>
+        <span class="headerText" data-inner-admin-name>n/a</span>
 
         <div class="h2 mb-3 headerText">Pending Requests</div>
 
@@ -309,20 +309,20 @@
         id="admin-messages-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span data-inner-admin-name>n/a</span>
+        <span class="headerText"data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3">Admin Messages</div>
+        <div class="h2 mb-3 headerText">Admin Messages</div>
 
         <div class="mb-3">
-          <button id="action-btn-admin-new-message">New Message</button>
-          <button id="action-btn-admin-inbox-messages">Inbox</button>
+          <button id="action-btn-admin-new-message button">New Message</button>
+          <button id="action-btn-admin-inbox-messages button">Inbox</button>
         </div>
 
         <div id="admin-inbox-messages-tab">
-          <div class="content-injection bordered"></div>
+          <div class="content-injection form noTransformText"></div>
         </div>
 
-        <div id="admin-new-message-tab" class="hidden bordered">
+        <div id="admin-new-message-tab" class="hidden form">
           <form id="send-form-message-admin">
             <div class="flex-col mb-3">
               <label for="send-form-message-admin-to-user-uid">To: </label>
@@ -359,12 +359,12 @@
         </div>
 
         <div id="admin-nav-btn-group">
-          <button class="navigate-btn-create-lot-section">Create Lot</button>
-          <button class="navigate-btn-manage-lots-section">Manage Lot</button>
-          <button class="navigate-btn-pending-requests-section">
+          <button class="navigate-btn-create-lot-section button">Create Lot</button>
+          <button class="navigate-btn-manage-lots-section button">Manage Lot</button>
+          <button class="navigate-btn-pending-requests-section button">
             Pending Requests
           </button>
-          <button class="navigate-btn-manage-drivers-section">
+          <button class="navigate-btn-manage-drivers-section button">
             Manage Users
           </button>
         </div>

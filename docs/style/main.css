@@ -76,7 +76,7 @@ input[type="password"] {
 
 .noTransformText{
   font-size: 15px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: white;
   margin-bottom: 2;
 }
