@@ -428,11 +428,11 @@ function renderDriversTo(drivers, host) {
         }).append([
           $("<span>", {
              text: driver.name,
-             class:"text"
+             class:"noTransformText"
             }),
           $("<span>", { 
             text: driver.email,
-            class:"text" 
+            class:"noTransformText" 
           }),
           $("<button>", {
             text:
@@ -441,7 +441,7 @@ function renderDriversTo(drivers, host) {
                 : driver.state === "banned"
                 ? "Unban"
                 : "n/a",
-            class: "action-btn-driver-ban-toggle button",
+            class: "action-btn-driver-ban-toggle columnButton",
             "data-driver-uid": driver.uid,
           }),
         ]),
