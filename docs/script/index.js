@@ -426,8 +426,14 @@ function renderDriversTo(drivers, host) {
           id: driver.uid,
           "data-state": driver.state,
         }).append([
-          $("<span>", { text: driver.name }),
-          $("<span>", { text: driver.email }),
+          $("<span>", {
+             text: driver.name,
+             class:"text"
+            }),
+          $("<span>", { 
+            text: driver.email,
+            class:"text" 
+          }),
           $("<button>", {
             text:
               driver.state === "active"
@@ -435,7 +441,7 @@ function renderDriversTo(drivers, host) {
                 : driver.state === "banned"
                 ? "Unban"
                 : "n/a",
-            class: "action-btn-driver-ban-toggle",
+            class: "action-btn-driver-ban-toggle button",
             "data-driver-uid": driver.uid,
           }),
         ]),
