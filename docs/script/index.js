@@ -1,5 +1,3 @@
-const fs = require("fs");
-dbPath = __dirname + "\\..\\public\\db\\index.json";
 let thisAdmin,
   thisDriver,
   thisLot,
