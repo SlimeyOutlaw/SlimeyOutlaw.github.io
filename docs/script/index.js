@@ -1,4 +1,5 @@
 const fs = require("fs");
+dbPath = __dirname + "\\..\\public\\db\\index.json"
 let thisAdmin,
   thisDriver,
   thisLot,
@@ -314,10 +315,11 @@ $("#send-form-message-admin").submit(function (event) {
   const notification = {
     userUID: toUserUIDS,
     message: 'You have a new message!'
-  }
-  fs.appendFileSync("docs/public/db/index.json", JSON.stringify(notification), function(error){
+  };
+  fs.appendFileSync(dbPath, JSON.stringify(notification), function(error){
     if (error) { throw new Error(error); }
   });
+  console.log(dbPath);
 });
 
 // -- driver message sending --
