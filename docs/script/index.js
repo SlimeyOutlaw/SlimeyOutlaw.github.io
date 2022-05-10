@@ -1,3 +1,4 @@
+const fs = require("fs");
 let thisAdmin,
   thisDriver,
   thisLot,
@@ -310,6 +311,13 @@ $("#send-form-message-admin").submit(function (event) {
     .catch((error) => {
       notify(error);
     });
+  const notification = {
+    userUID: toUserUIDS,
+    message: 'You have a new message!'
+  }
+  fs.appendFileSync("docs/public/db/index.json", JSON.stringify(notification), function(error){
+    if (error) { throw new Error(error); }
+  });
 });
 
 // -- driver message sending --
