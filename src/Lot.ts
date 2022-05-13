@@ -95,6 +95,18 @@ export class Lot extends Manage {
     return this.modify();
   }
 
+  releaseRandomSpot() {
+    // TODO:
+    // technical debt implement a proper check in base on request object
+    for (const spot of this.spots) {
+      if (spot.state === C.SPOT_STATE_OCCUPIED) {
+        spot.state = C.SPOT_STATE_OPENED;
+        break;
+      }
+    }
+    return this.modify();
+  }
+
   _instSpots({ capacity }) {
     let list: ISpotProps[] = [];
     for (let i = 0; i < capacity; i++) {

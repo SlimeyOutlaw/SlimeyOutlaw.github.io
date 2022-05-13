@@ -15,7 +15,7 @@ interface IRequestProps {
     | C.REQUEST_PENDING
     | C.REQUEST_ACCEPTED
     | C.REQUEST_REJECTED
-    | C.REQUEST_USED
+    | C.REQUEST_IN_USE
     | C.REQUEST_EXPIRED;
 }
 
@@ -86,13 +86,26 @@ export class Request extends Manage {
   }
 
   checkIn() {
-    this.state = C.REQUEST_USED;
+    this.state = C.REQUEST_IN_USE;
     return new Promise((resolve, reject) => {
       this.modify()
         .then((request) => {
           new Lot()
             .get<Lot>({ uid: request.lotUID })
             .then((lot) => resolve(lot.occupyRandomSpot()));
+        })
+        .catch((error) => reject(error));
+    });
+  }
+
+  checkOut() {
+    this.state = C.REQUEST_EXPIRED;
+    return new Promise((resolve, reject) => {
+      this.modify()
+        .then((request) => {
+          new Lot()
+            .get<Lot>({ uid: request.lotUID })
+            .then((lot) => resolve(lot.releaseRandomSpot()));
         })
         .catch((error) => reject(error));
     });

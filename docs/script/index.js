@@ -18,6 +18,7 @@ $(window).on("hashchange", function (_event) {
     $(".navigate-btn-admin-home").removeClass("hidden");
     $(".navigate-btn-driver-home").removeClass("hidden");
     renderSection(hash.replace(/#/, ""));
+    renderUpcomingRequestBanner();
   } else {
     $(".navigate-btn-admin-home").addClass("hidden");
     $(".navigate-btn-driver-home").addClass("hidden");
@@ -167,6 +168,7 @@ $("body").on("click", ".action-btn-driver-ban-toggle", function () {
 $("body").on("click", "#action-btn-admin-new-message", function () {
   $("#admin-new-message-tab").removeClass("hidden");
   $("#admin-inbox-messages-tab").addClass("hidden");
+  // preload select options
   $("#send-form-message-admin-to-user-uid").click();
 });
 $("body").on("click", "#action-btn-admin-inbox-messages", function () {
@@ -177,18 +179,130 @@ $("body").on("click", "#action-btn-admin-inbox-messages", function () {
     $("#admin-new-message-tab").addClass("hidden");
   });
 });
+$("body").on(
+  "click",
+  ".navigate-btn-driver-manage-requests-section, #action-btn-driver-request-history",
+  function () {
+    PMS.getRequests().then((list) => {
+      location.hash = "driver-request-management-section";
+      const payments = thisDriver.payments.map((p) => p.uid);
+      const requests = list.filter(
+        (req) => payments.indexOf(req.paymentUID) > -1
+      );
+      renderDriverRequestHistoryTo(
+        requests,
+        "#driver-request-history-tab .content-injection"
+      );
+      $("#driver-request-registration-tab").addClass("hidden");
+      $("#driver-request-history-tab").removeClass("hidden");
+    });
+  }
+);
+$("body").on("click", "#action-btn-driver-request-registration", function () {
+  PMS.getPayments().then((list) => {
+    const [hasPayment] = list.filter((p) => p.driverUID === thisDriver.uid);
+    if (!hasPayment) {
+      $("#driver-request-registration-tab .content-injection").empty();
+      $("#driver-request-registration-tab .content-injection").append(
+        $("<span>", {
+          class: "register-request-absent-payment",
+          text: "Please add a payment first!",
+        })
+      );
+      $(
+        "#driver-request-registration-tab input, #driver-request-registration-tab select"
+      ).each(function (_idx, elem) {
+        elem.disabled = true;
+      });
+    } else {
+      $(
+        "#driver-request-registration-tab input[type='submit']"
+      )[0].disabled = true;
+      $(
+        "#driver-request-registration-tab input, #driver-request-registration-tab select"
+      ).each(function (_idx, elem) {
+        $(elem).on("change", function (e) {
+          const lotUID = $("#register-form-request-lot-uid").val();
+          const paymentUID = $("#register-form-request-payment-uid").val();
+          const start = $("#register-form-request-start").val();
+          const end = $("#register-form-request-end").val();
+          if (lotUID && paymentUID && start && end) {
+            const cost =
+              new PMS.Request({
+                lotUID,
+                paymentUID,
+                start,
+                end,
+              }).cost() / 100;
+            const costStr = (cost > 10 ? 10 : cost < 0 ? 1 : cost).toFixed(2);
+            $(".register-request-price-text").text(`£${costStr}`);
+            $(
+              "#driver-request-registration-tab input[type='submit']"
+            )[0].disabled = false;
+          }
+        });
+      });
+      // preload select options
+      $("#register-form-request-lot-uid").click();
+      $("#register-form-request-payment-uid").click();
+    }
+    $("#driver-request-registration-tab").removeClass("hidden");
+    $("#driver-request-history-tab").addClass("hidden");
+  });
+});
+$("body").on("click", ".navigate-btn-driver-messages-section", function () {
+  PMS.getMessages().then((list) => {
+    const messages = list.filter((msg) => msg.toUserUID === thisDriver.uid);
+    renderMessagesTo(messages, "#driver-messages-section .content-injection");
+    location.hash = "driver-messages-section";
+  });
+});
+$("body").on("click", "#action-btn-driver-new-message", function () {
+  $("#driver-new-message-tab").removeClass("hidden");
+  $("#driver-inbox-messages-tab").addClass("hidden");
+  // preload select options
+  $("#send-form-message-driver-to-user-uid").click();
+});
+$("body").on("click", "#action-btn-driver-inbox-messages", function () {
+  PMS.getMessages().then((list) => {
+    const messages = list.filter((msg) => msg.toUserUID === thisDriver.uid);
+    renderMessagesTo(messages, "#driver-messages-section .content-injection");
+    $("#driver-inbox-messages-tab").removeClass("hidden");
+    $("#driver-new-message-tab").addClass("hidden");
+  });
+});
+$("body").on("click", ".navigate-btn-manage-payment-section", function () {
+  PMS.getPayments().then((list) => {
+    const payment = list.filter(
+      (payment) => payment.driverUID === thisDriver.uid
+    );
+    renderPaymentsTo(
+      payment,
+      "#driver-payment-management-section .content-injection"
+    );
+    location.hash = "driver-payment-management-section";
+  });
+});
 
 /////////////////////////////////////////////////////
 //                    forms                       //
 ////////////////////////////////////////////////////
 
 // -- admin registration --
-$("#register-form-admin").submit(async function (event) {
+$("#register-form-admin").submit(function (event) {
   event.preventDefault();
   const name = $("#register-form-admin-name").val();
   const password = $("#register-form-admin-password").val();
-  thisAdmin = await new PMS.Admin({ name, password }).register();
-  console.log(thisAdmin);
+  new PMS.Admin({ name, password })
+    .register()
+    .then((admin) => {
+      thisAdmin = admin;
+      location.hash = "admin-home-section";
+      console.log(thisAdmin);
+    })
+    .catch((error) => {
+      notify(error);
+    });
 });
 
 // -- admin login --
@@ -209,26 +323,44 @@ $("#login-form-admin").submit(function (event) {
 });
 
 // -- driver registration --
-$("#register-form-driver").submit(async function (event) {
+$("#register-form-driver").submit(function (event) {
   event.preventDefault();
   const name = $("#register-form-driver-name").val();
   const email = $("#register-form-driver-email").val();
   const password = $("#register-form-driver-password").val();
-  thisDriver = await new PMS.Driver({ name, email, password }).register();
-  console.log(thisDriver);
+  new PMS.Driver({ name, email, password })
+    .register()
+    .then((driver) => {
+      PMS.getDrivers().then((list) => {
+        [thisDriver] = list.filter((d) => d.uid === driver.uid);
+        location.hash = "driver-home-section";
+        console.log(thisDriver);
+      });
+    })
+    .catch((error) => {
+      notify(error);
+    });
 });
 
 // -- driver login --
-$("#login-form-driver").submit(async function (event) {
+$("#login-form-driver").submit(function (event) {
   event.preventDefault();
   const email = $("#login-form-driver-email").val();
   const password = $("#login-form-driver-password").val();
   new PMS.Driver({ email, password })
     .login()
     .then((driver) => {
-      thisDriver = driver;
-      location.hash = "driver-home-section";
-      console.log(thisDriver);
+      if (driver.state === "banned") {
+        throw new Error("Access Forbidden ");
+      }
+      return driver;
+    })
+    .then((driver) => {
+      PMS.getDrivers().then((list) => {
+        [thisDriver] = list.filter((d) => d.uid === driver.uid);
+        location.hash = "driver-home-section";
+        console.log(thisDriver);
+      });
     })
     .catch((error) => {
       notify(error);
@@ -236,7 +368,7 @@ $("#login-form-driver").submit(async function (event) {
 });
 
 // -- lot registration --
-$("#register-form-lot").submit(async function (event) {
+$("#register-form-lot").submit(function (event) {
   event.preventDefault();
   const name = $("#register-form-lot-name").val();
   const coordinate = $("#register-form-lot-coordinate").val();
@@ -256,37 +388,48 @@ $("#register-form-lot").submit(async function (event) {
     });
 });
 
-// -- payment registration --
-$("#register-form-payment").submit(async function (event) {
-  event.preventDefault();
-  const name = $("#register-form-payment-name").val();
-  const ccn = $("#register-form-payment-card-no").val();
-  const ccv = $("#register-form-payment-ccv").val();
-  const exp = $("#register-form-payment-expiry-date").val();
-  thisPayment = await new PMS.Payment({
-    driverUID: thisDriver.uid,
-    name,
-    ccn,
-    ccv,
-    exp,
-  }).register();
-  console.log(thisPayment);
-});
-
 // -- request registration --
-$("#register-form-request").submit(async function (event) {
+$("#register-form-request").submit(function (event) {
   event.preventDefault();
   const lotUID = $("#register-form-request-lot-uid").val();
   const paymentUID = $("#register-form-request-payment-uid").val();
   const start = $("#register-form-request-start").val();
   const end = $("#register-form-request-end").val();
-  thisRequest = await new PMS.Request({
+  new PMS.Request({
     lotUID,
     paymentUID,
     start,
     end,
-  }).send();
-  console.log(thisRequest);
+  })
+    .send()
+    .then((request) => {
+      thisRequest = request;
+      $("#action-btn-driver-request-history").click();
+      console.log(thisRequest);
+    });
+});
+
+// -- payment registration --
+$("#register-form-payment").submit(function (event) {
+  event.preventDefault();
+  const name = $("#register-form-payment-name").val();
+  const ccn = $("#register-form-payment-card-no").val();
+  const ccv = $("#register-form-payment-ccv").val();
+  const exp = $("#register-form-payment-expiry-date").val();
+  new PMS.Payment({
+    driverUID: thisDriver.uid,
+    name,
+    ccn,
+    ccv,
+    exp,
+  })
+    .register()
+    .then((payment) => {
+      thisPayment = payment;
+      location.hash = "driver-home-section";
+      notify("-- card added ---");
+      console.log(thisPayment);
+    });
 });
 
 // -- admin message sending --
@@ -313,21 +456,32 @@ $("#send-form-message-admin").submit(function (event) {
 });
 
 // -- driver message sending --
-$("#send-form-message-driver").submit(async function (event) {
+$("#send-form-message-driver").submit(function (event) {
   event.preventDefault();
   const title = $("#send-form-message-driver-title").val();
   const content = $("#send-form-message-driver-content").val();
-  thisMessage = await new PMS.Message({
-    fromUserUID: thisDriver.uid,
-    toUserUIDS: [thisAdmin.uid],
-    title,
-    content,
-  }).send();
-  console.log(thisMessage);
+  PMS.getAdmins().then((list) => {
+    const adminUIDS = list.map((l) => l.uid);
+    new PMS.Message({
+      fromUserUID: thisDriver.uid,
+      toUserUIDS: adminUIDS,
+      title,
+      content,
+    })
+      .send()
+      .then((message) => {
+        thisMessage = message;
+        notify("-- message sent --");
+        console.log(thisMessage);
+      })
+      .catch((error) => {
+        notify(error);
+      });
+  });
 });
 
 // -- request automate action --
-$("#action-form-admin-requests-selection").submit(async function (event) {
+$("#action-form-admin-requests-selection").submit(function (event) {
   event.preventDefault();
   const $target = $(this);
   let filteredRequests = [];
@@ -409,7 +563,7 @@ function renderLotSelectionTo(lots, host) {
         id: lot.uid,
         name: lot.name,
         text: lot.name,
-        class: "navigate-btn-lot-id button",
+        class: "navigate-btn-lot-id",
       })
     );
   });
@@ -426,14 +580,8 @@ function renderDriversTo(drivers, host) {
           id: driver.uid,
           "data-state": driver.state,
         }).append([
-          $("<span>", {
-             text: driver.name,
-             class:"noTransformText"
-            }),
-          $("<span>", { 
-            text: driver.email,
-            class:"noTransformText" 
-          }),
+          $("<span>", { text: driver.name }),
+          $("<span>", { text: driver.email }),
           $("<button>", {
             text:
               driver.state === "active"
@@ -441,7 +589,7 @@ function renderDriversTo(drivers, host) {
                 : driver.state === "banned"
                 ? "Unban"
                 : "n/a",
-            class: "action-btn-driver-ban-toggle columnButton",
+            class: "action-btn-driver-ban-toggle",
             "data-driver-uid": driver.uid,
           }),
         ]),
@@ -502,6 +650,7 @@ function renderMessagesTo(messages, host) {
           }).append([
             $("<span>", { text: contentList[0] }),
             $("<span>", { text: contentList[1] }),
+            $("</br>"),
             $("<span>", { text: contentList[2] }),
             $("<span>", { text: contentList[3] }),
           ]),
@@ -513,13 +662,134 @@ function renderMessagesTo(messages, host) {
   hydrateSection();
 }
 
+// -- update the visual presentation of driver requests --
+function renderDriverRequestHistoryTo(requests, host) {
+  $(host).empty();
+  $.each(requests, function (_i, req) {
+    thisRequest = req;
+    req.toString().then((content) => {
+      $(host).append(
+        $("<ul>").append(
+          $("<li>", {
+            id: req.uid,
+            text: content.match(/-(.*)/)[1],
+            "data-state": req.state,
+          }),
+          [$("<hr>")]
+        )
+      );
+    });
+  });
+  hydrateSection();
+}
+
+// -- update the visual presentation of driver payments --
+function renderPaymentsTo(payments, host) {
+  $(host).empty();
+  $.each(payments, function (_i, p) {
+    thisPayment = p;
+    $(host).append(
+      $("<div>", {
+        id: p.uid,
+        "data-state": p.state,
+        class: "payment-item-wrapper bank-card",
+      }).append([
+        $("<span>", {
+          class: "payment-item-text",
+          text: "Debit",
+        }),
+        $("<span>", {
+          class: "payment-item-text",
+          text: new Date(p.exp).toISOString().split("T")[0],
+        }),
+      ])
+    );
+  });
+  hydrateSection();
+}
+
+function renderUpcomingRequestBanner() {
+  if (thisDriver) {
+    const banner = $("<span>", {
+      class: "upcoming-request-banner-injection",
+      text: "*** Loading requests... ***",
+    });
+    $("#upcoming-request-banner-wrapper .content-injection").empty();
+    $("#upcoming-request-banner-wrapper .content-injection").addClass(
+      "pulsate"
+    );
+    $("#upcoming-request-banner-wrapper .content-injection").append(banner);
+
+    [thisRequest] = thisDriver.requests.filter((r) => r.state === "inuse");
+    if (thisRequest) {
+      $(".navigate-btn-check-in").addClass("hidden");
+      $(".navigate-btn-check-out").removeClass("hidden");
+      $(".navigate-btn-check-out").prop("disabled", true);
+      PMS.getLots().then((lot) => {
+        const [_lot] = lot.filter((l) => l.uid === thisRequest.lotUID);
+        banner.text(`Currently parked at ${_lot.name}`);
+        $("#upcoming-request-banner-wrapper .content-injection").removeClass(
+          "pulsate"
+        );
+        $(".navigate-btn-check-out").prop("disabled", false);
+        $(".navigate-btn-check-out").on("click", function (e) {
+          e.stopImmediatePropagation();
+          thisRequest.checkOut().then((_spot) => {
+            // rerender self
+            renderUpcomingRequestBanner();
+          });
+        });
+      });
+    } else {
+      $(".navigate-btn-check-out").addClass("hidden");
+      $(".navigate-btn-check-in").removeClass("hidden");
+      $(".navigate-btn-check-in").prop("disabled", true);
+      const requests = thisDriver.requests.filter(
+        (r) => r.state === "accepted"
+      );
+      const startTimeList = requests.map((r) => new Date(r.start).getTime());
+      const idx = startTimeList.indexOf(Math.min(...startTimeList));
+      if (idx > -1) {
+        thisRequest = requests[idx];
+        thisRequest.toString().then((res) => {
+          $("#upcoming-request-banner-wrapper .content-injection").removeClass(
+            "pulsate"
+          );
+          banner.text(res.match(/-(.*)/)[1]);
+          $(".navigate-btn-check-in").prop("disabled", false);
+          $(".navigate-btn-check-in").on("click", function (e) {
+            e.stopImmediatePropagation();
+            thisRequest.checkIn().then((_spot) => {
+              PMS.getLots().then((lot) => {
+                const [_lot] = lot.filter((l) => l.uid === thisRequest.lotUID);
+                notify(`-- Welcome to ${_lot.name} --`);
+                //rerender self
+                renderUpcomingRequestBanner();
+              });
+            });
+          });
+        });
+      } else {
+        banner.text("*** No upcoming requests ***");
+        $("#upcoming-request-banner-wrapper .content-injection").removeClass(
+          "pulsate"
+        );
+        $(".upcoming-request-banner-injection").addClass(
+          "upcoming-request-banner-injection-disabled"
+        );
+      }
+    }
+
+    hydrateSection();
+  }
+}
 // --hydrate page-section --
 function hydrateSection() {
   if (thisAdmin) {
-    $("[data-inner-admin-name]").text(thisAdmin.name);
+    $("[data-inner-admin-name]").text(`👋🏿 ${thisAdmin.name}`);
   }
   if (thisDriver) {
-    $("[data-inner-driver-name]").text(thisDriver.name);
+    $("[data-inner-driver-name]").text(`👋🏿 ${thisDriver.name}`);
   }
   if (thisLot) {
     $("[data-inner-lot-uid]").text(thisLot.uid);
@@ -564,5 +834,5 @@ function notify(text) {
   $("#notification").addClass("notification-enter");
   thisNotificationTimer = setTimeout(() => {
     $("#notification").removeClass("notification-enter");
-  }, 5000);
+  }, 6000);
 }

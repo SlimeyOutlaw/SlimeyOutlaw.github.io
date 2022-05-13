@@ -27,7 +27,7 @@ export enum C {
   REQUEST_PENDING = "pending",
   REQUEST_ACCEPTED = "accepted",
   REQUEST_REJECTED = "rejected",
-  REQUEST_USED = "used",
+  REQUEST_IN_USE = "inuse",
   REQUEST_EXPIRED = "expired",
 
   MESSAGE_STATE_DELIVERED = "delivered",

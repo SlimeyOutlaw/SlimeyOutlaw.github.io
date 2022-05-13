@@ -35,7 +35,7 @@ export class Message extends Manage {
     uid,
   }: Partial<IMessageProps> = {}) {
     super(uid);
-    this.mem = toUserUIDS;
+    this.mem = toUserUIDS || [toUserUID];
     this.toUserUID = toUserUID;
     this.fromUserUID = fromUserUID;
     this.replyToRef = replyToRef;

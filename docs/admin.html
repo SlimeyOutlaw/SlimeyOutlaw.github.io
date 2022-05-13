@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <link rel="stylesheet" href="style/main.css" />
-    <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');</style>
     <title>PMS - admin</title>
   </head>
-  <body class="loginPageBody">
-    <img class="logo" src="public/images/logo.png" alt="University Of East Anglia Logo">
+  <body>
     <div class="container">
       <!-- Admin registration section -->
       <!-- <div class="page-section hidden">
@@ -39,9 +37,9 @@
         id="admin-login-section"
         class="page-section max-dimensions flex-col-center"
       >
-        <div><div class="headerText">Sign In</div></div>
+        <div><div class="h2 mb-3">Sign In</div></div>
 
-        <form id="login-form-admin" class="form">
+        <form id="login-form-admin" class="bordered">
           <div class="mb-3 flex-col">
             <label for="login-form-admin-name"> Name: </label>
             <input
@@ -62,7 +60,7 @@
             />
           </div>
           <div class="mt-3 flex-col-center">
-            <input class="button" type="submit" value="login" />
+            <input type="submit" value="login" />
           </div>
         </form>
       </div>
@@ -72,22 +70,22 @@
         id="admin-home-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText" data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
         <div class="flex-col">
-          <button class="navigate-btn-create-lot-section mb-3 button">
+          <button class="navigate-btn-create-lot-section mb-3">
             Create Lot
           </button>
-          <button class="navigate-btn-manage-lots-section mb-3 button">
+          <button class="navigate-btn-manage-lots-section mb-3">
             Manage Lot
           </button>
-          <button class="navigate-btn-pending-requests-section mb-3 button">
+          <button class="navigate-btn-pending-requests-section mb-3">
             Pending Requests
           </button>
-          <button class="navigate-btn-manage-drivers-section mb-3 button">
-            Manage Users
+          <button class="navigate-btn-manage-drivers-section mb-3">
+            Manage Drivers
           </button>
-          <button class="navigate-btn-admin-messages-section mb-3 button">
+          <button class="navigate-btn-admin-messages-section mb-3">
             Messages
           </button>
         </div>
@@ -98,11 +96,11 @@
         id="lot-creation-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText" data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3 headerText">Create Lot</div>
+        <div class="h2 mb-3">Create Lot</div>
 
-        <form id="register-form-lot" class="form">
+        <form id="register-form-lot" class="flex-col bordered">
           <div class="mb-3 flex-col">
             <label for="register-form-lot-name"> Name:</label>
             <input
@@ -121,7 +119,7 @@
               required
             />
           </div>
-          <div class="flex-col">
+          <div class="mb-3 flex-col">
             <label for="register-form-lot-capacity"> Capacity:</label>
             <input
               id="register-form-lot-capacity"
@@ -130,20 +128,18 @@
               required
             />
           </div>
-          <div class="mt-3 flex-col-center">
-            <input class="button" type="submit" value="register" />
-          </div>
+          <input type="submit" value="register" />
         </form>
 
-        <div id="admin-nav-btn-group">
-          <button class="navigate-btn-manage-lots-section button">Manage Lot</button>
-          <button class="navigate-btn-pending-requests-section button">
+        <div class="admin-nav-btn-group">
+          <button class="navigate-btn-manage-lots-section">Manage Lot</button>
+          <button class="navigate-btn-pending-requests-section">
             Pending Requests
           </button>
-          <button class="navigate-btn-manage-drivers-section button">
+          <button class="navigate-btn-manage-drivers-section">
             Manage Users
           </button>
-          <button class="navigate-btn-admin-messages-section button">Messages</button>
+          <button class="navigate-btn-admin-messages-section">Messages</button>
         </div>
       </div>
 
@@ -152,21 +148,21 @@
         id="lot-selection-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText" data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
-        <div class="headerText">Manage Lot</div>
+        <div class="h2 mb-3">Manage Lot</div>
 
         <div class="content-injection flex-col child-btn-mb-3"></div>
 
-        <div id="admin-nav-btn-group">
-          <button class="navigate-btn-create-lot-section button">Create Lot</button>
-          <button class="navigate-btn-pending-requests-section button">
+        <div class="admin-nav-btn-group">
+          <button class="navigate-btn-create-lot-section">Create Lot</button>
+          <button class="navigate-btn-pending-requests-section">
             Pending Requests
           </button>
-          <button class="navigate-btn-manage-drivers-section button">
+          <button class="navigate-btn-manage-drivers-section">
             Manage Users
           </button>
-          <button class="navigate-btn-admin-messages-section button">Messages</button>
+          <button class="navigate-btn-admin-messages-section">Messages</button>
         </div>
       </div>
 
@@ -175,68 +171,73 @@
         id="lot-selected-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText" data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3 headerText" data-inner-lot-name>n/a</div>
+        <div class="h2 mb-3" data-inner-lot-name>n/a</div>
 
         <div id="lot-selected-section-child-1">
           <div>
-            <div class="text"><h4>Lot Details</h4></div>
+            <div><h4>Lot Details</h4></div>
             <div class="space-between">
-              <span class="text" >ID:&nbsp;</span>
-              <span class="text" data-inner-lot-uid>n/a</span>
+              <span>ID:&nbsp;</span>
+              <span data-inner-lot-uid>n/a</span>
             </div>
             <div class="space-between">
-              <span class="text">Coordinate:&nbsp;</span>
-              <span class="text" data-inner-lot-coordinate>n/a</span>
+              <span>Coordinate:&nbsp;</span>
+              <span data-inner-lot-coordinate>n/a</span>
             </div>
             <div class="space-between">
-              <span class="text"> Total Spaces:&nbsp;</span>
-              <span class="text" data-inner-lot-spaces>0</span>
+              <span>Total Spaces:&nbsp;</span>
+              <span data-inner-lot-spaces>0</span>
             </div>
             <div class="space-between">
-              <span class="text"> Opened Spaces:&nbsp;</span>
-              <span class="text" data-inner-spot-opened>0</span>
+              <span>Opened Spaces:&nbsp;</span>
+              <span data-inner-spot-opened>0</span>
             </div>
             <div class="space-between">
-              <span class="text"> Occupied Spaces:&nbsp;</span>
-              <span class="text" data-inner-spot-occupied>0</span>
+              <span>Occupied Spaces:&nbsp;</span>
+              <span data-inner-spot-occupied>0</span>
             </div>
             <div class="space-between">
-              <span class="text">Reserved Spaces:&nbsp;</span>
-              <span class="text" data-inner-spot-reserved>0</span>
+              <span>Reserved Spaces:&nbsp;</span>
+              <span data-inner-spot-reserved>0</span>
             </div>
           </div>
 
-          <div class="content-injection form"></div>
+          <div class="content-injection bordered"></div>
 
           <div>
             <div>
-              <div class="text"><h4>Selected Spot</h4></div>
-              <div class="space-between text">
+              <div><h4>Selected Spot</h4></div>
+              <div class="space-between">
                 <span>ID:&nbsp;</span><span data-inner-spot-uid>n/a</span>
               </div>
-              <div class="space-between text">
+              <div class="space-between">
                 <span>Status: </span><span data-inner-spot-state>n/a</span>
+              </div>
+              <div class="spot-color-key-wrapper">
+                <span class="spot-color-key spot-occupied">occupied</span>
+                <span class="spot-color-key spot-reserved">reserved</span>
+                <span class="spot-color-key spot-opened">opened</span>
               </div>
             </div>
             <div class="space-between">
-              <button class="button" id="action-btn-spot-reserve" disabled>Reserve</button>
-              <button class="button" id="action-btn-spot-open" disabled>Open</button>
+              <button id="action-btn-spot-reserve" disabled>Reserve</button>
+              <button id="action-btn-spot-open" disabled>Open</button>
             </div>
           </div>
         </div>
 
-        <div id="admin-nav-btn-group">
-          <button class="navigate-btn-create-lot-section button">Create Lot</button>
-          <button class="navigate-btn-manage-lots-section button">Manage Lot</button>
-          <button class="navigate-btn-pending-requests-section button">
+        <div class="admin-nav-btn-group">
+          <button class="navigate-btn-create-lot-section">Create Lot</button>
+          <button class="navigate-btn-manage-lots-section">Manage Lot</button>
+          <button class="navigate-btn-pending-requests-section">
             Pending Requests
           </button>
-          <button class="navigate-btn-manage-drivers-section button">
+          <button class="navigate-btn-manage-drivers-section">
             Manage Users
           </button>
-          <button class="navigate-btn-admin-messages-section button">Messages</button>
+          <button class="navigate-btn-admin-messages-section">Messages</button>
         </div>
       </div>
 
@@ -245,41 +246,41 @@
         id="admin-requests-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText" data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3 headerText">Pending Requests</div>
+        <div class="h2 mb-3">Pending Requests</div>
 
-        <form id="action-form-admin-requests-selection" class="form">
+        <form id="action-form-admin-requests-selection" class="bordered">
           <div class="content-injection"></div>
           <div>
             <input
               id="action-btn-request-automate"
               type="button"
               value="Automate Selection"
-              class="m-3 button"
+              class="m-3"
             />
             <input
               id="action-btn-request-accept"
               type="button"
               value="Accept Selection"
-              class="m-3 button"
+              class="m-3"
             />
             <input
               id="action-btn-request-reject"
               type="button"
               value="Reject Selection"
-              class="m-3 button"
+              class="m-3"
             />
           </div>
         </form>
 
-        <div id="admin-nav-btn-group">
-          <button class="navigate-btn-create-lot-section button">Create Lot</button>
-          <button class="navigate-btn-manage-lots-section button">Manage Lot</button>
-          <button class="navigate-btn-manage-drivers-section button">
+        <div class="admin-nav-btn-group">
+          <button class="navigate-btn-create-lot-section">Create Lot</button>
+          <button class="navigate-btn-manage-lots-section">Manage Lot</button>
+          <button class="navigate-btn-manage-drivers-section">
             Manage Users
           </button>
-          <button class="navigate-btn-admin-messages-section button">Messages</button>
+          <button class="navigate-btn-admin-messages-section">Messages</button>
         </div>
       </div>
 
@@ -288,19 +289,19 @@
         id="driver-management-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText" data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3 headerText">Manage Drivers</div>
+        <div class="h2 mb-3">Manage Users</div>
 
-        <div class="content-injection form"></div>
+        <div class="content-injection bordered"></div>
 
-        <div id="admin-nav-btn-group">
-          <button class="navigate-btn-create-lot-section button">Create Lot</button>
-          <button class="navigate-btn-manage-lots-section button">Manage Lot</button>
-          <button class="navigate-btn-pending-requests-section button">
+        <div class="admin-nav-btn-group">
+          <button class="navigate-btn-create-lot-section">Create Lot</button>
+          <button class="navigate-btn-manage-lots-section">Manage Lot</button>
+          <button class="navigate-btn-pending-requests-section">
             Pending Requests
           </button>
-          <button class="navigate-btn-admin-messages-section button">Messages</button>
+          <button class="navigate-btn-admin-messages-section">Messages</button>
         </div>
       </div>
 
@@ -309,20 +310,20 @@
         id="admin-messages-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span class="headerText"data-inner-admin-name>n/a</span>
+        <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3 headerText">Admin Messages</div>
+        <div class="h2 mb-3">Admin Messages</div>
 
         <div class="mb-3">
-          <button class="button" id="action-btn-admin-new-message">New Message</button>
-          <button class="button" id="action-btn-admin-inbox-messages">Inbox</button>
+          <button id="action-btn-admin-new-message">New Message</button>
+          <button id="action-btn-admin-inbox-messages">Inbox</button>
         </div>
 
         <div id="admin-inbox-messages-tab">
-          <div class="content-injection form noTransformText"></div>
+          <div class="content-injection bordered"></div>
         </div>
 
-        <div id="admin-new-message-tab" class="hidden form">
+        <div id="admin-new-message-tab" class="hidden bordered">
           <form id="send-form-message-admin">
             <div class="flex-col mb-3">
               <label for="send-form-message-admin-to-user-uid">To: </label>
@@ -354,31 +355,31 @@
                 required
               ></textarea>
             </div>
-            <input class="button" type="submit" value="send" class="mt-3" />
+            <input type="submit" value="send" class="mt-3" />
           </form>
         </div>
 
-        <div id="admin-nav-btn-group">
-          <button class="navigate-btn-create-lot-section button">Create Lot</button>
-          <button class="navigate-btn-manage-lots-section button">Manage Lot</button>
-          <button class="navigate-btn-pending-requests-section button">
+        <div class="admin-nav-btn-group">
+          <button class="navigate-btn-create-lot-section">Create Lot</button>
+          <button class="navigate-btn-manage-lots-section">Manage Lot</button>
+          <button class="navigate-btn-pending-requests-section">
             Pending Requests
           </button>
-          <button class="navigate-btn-manage-drivers-section button">
+          <button class="navigate-btn-manage-drivers-section">
             Manage Users
           </button>
         </div>
       </div>
 
       <!-- helpers -->
-      <div id="notification"></div>
-      <div id="busy-spinner" class="hidden"></div>
       <button
-        class="hidden navigate-btn-admin-home button homeButton"
+        class="hidden navigate-btn-admin-home"
         onclick="javascript:location.hash='admin-home-section'"
       >
         Home
       </button>
+      <div id="busy-spinner" class="hidden"></div>
+      <div id="notification"></div>
     </div>
 
     <script type="module" src="script/pms.js"></script>
