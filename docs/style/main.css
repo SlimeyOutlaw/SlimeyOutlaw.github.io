@@ -25,19 +25,17 @@ input[type="button"],
 input[type="submit"] {
   font-family: 'Montserrat', sans-serif;
   color: white;
-  font-size: 15px;
+  font-size: 20px;
   background-color: #5B6970;
-  margin-top: 35px;
+  margin-top: 10px;
   margin-bottom: 15px;
-  margin-right: 5px;
-  margin-left: 5px;
   border-width: 0px;
   border-radius: 8px;
   padding: 7px;
   padding-left: 15px;
   padding-right: 15px;
   width: auto;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
 /*button:hover,
@@ -56,9 +54,7 @@ button:disabled,
 input[type="button"]:disabled,
 input[type="submit"]:disabled {
   cursor: not-allowed;
-  box-shadow: none;
   transform: none;
-  border: 1px solid rgba(16, 16, 16, 0.3);
 }
 
 input[type="text"],
