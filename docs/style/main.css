@@ -555,11 +555,10 @@ select:focus {
   top: 0;
   right: 0;
   margin: 15px;
-  color: #059;
-  background-color: #bef;
-  border: solid 1px #059;
+  background-color: #5B6970;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   padding: 7.5px 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   text-transform: capitalize;
 }
 
