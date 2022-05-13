@@ -40,7 +40,7 @@ input[type="submit"] {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-//*button:hover,
+/*button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover {
   box-shadow: 4px 4px 0 #000;
@@ -50,7 +50,7 @@ button:focus-visible,
 input[type="button"]:focus-visible,
 input[type="submit"]:focus-visible {
   outline-offset: 1px;
-}*//
+}*/
 
 button:disabled,
 input[type="button"]:disabled,
@@ -132,7 +132,7 @@ select:focus {
   margin-bottom: 2;
 }
 
-.button{
+/*.button{
   font-family: 'Montserrat', sans-serif;
   color: white;
   font-size: 15px;
@@ -148,7 +148,7 @@ select:focus {
   padding-right: 15px;
   width: auto;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
+} 
 
 .columnButton{
   font-family: 'Montserrat', sans-serif;
@@ -162,7 +162,7 @@ select:focus {
   padding-right: 15px;
   width: auto;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
+} */
 
 .homeButton{
   margin-left: 950px;
