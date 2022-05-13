@@ -310,14 +310,6 @@ $("#send-form-message-admin").submit(function (event) {
     .catch((error) => {
       notify(error);
     });
-  const notification = {
-    userUID: toUserUIDS,
-    message: 'You have a new message!'
-  };
-  fs.appendFileSync(dbPath, JSON.stringify(notification), function(error){
-    if (error) { throw new Error(error); }
-  });
-  console.log(dbPath);
 });
 
 // -- driver message sending --

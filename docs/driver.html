@@ -5,23 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');</style>
     <link rel="stylesheet" href="style/main.css" />
     <title>PMS - driver</title>
   </head>
   <body>
-    <img class="logo" src="public/images/logo.png" alt="University Of East Anglia Logo">
     <div class="container">
       <!-- driver login section -->
       <div
         id="driver-login-section"
         class="page-section max-dimensions flex-col-center"
       >
-        <div><div class="headerText">Sign In</div></div>
+        <div><div class="h2 mb-3">Sign In</div></div>
 
-        <form id="login-form-driver" class="form">
+        <form id="login-form-driver" class="bordered">
           <div class="mb-3 flex-col">
-            <label for="login-form-driver-email"> Email: </label>
+            <label for="login-form-driver-email"> Email </label>
             <input
               id="login-form-driver-email"
               type="email"
@@ -30,7 +28,7 @@
             />
           </div>
           <div class="mb-3 flex-col">
-            <label for="login-form-driver-password"> Password: </label>
+            <label for="login-form-driver-password"> Password </label>
             <input
               id="login-form-driver-password"
               type="password"
@@ -40,9 +38,9 @@
             />
           </div>
           <div class="mt-3 flex-row-center">
-            <input class="button" type="submit" value="login" />
+            <input class="m-3" type="submit" value="login" />
             <input
-              class="button"
+              class="m-3"
               type="button"
               value="new user"
               onclick="javascript:location.hash='driver-register-section'"
@@ -56,9 +54,9 @@
         id="driver-register-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <div><div class="headerText">Register</div></div>
+        <div><div class="h2 mb-3">Register</div></div>
 
-        <form id="register-form-driver" class="form">
+        <form id="register-form-driver" class="bordered">
           <div class="mb-3 flex-col">
             <label for="register-form-driver-name"> Name </label>
             <input
@@ -88,9 +86,9 @@
             />
           </div>
           <div class="mt-3 flex-row-center">
-            <input class="button" type="submit" value="join" />
+            <input type="submit" value="join" />
             <input
-              class="button"
+              class="m-3"
               type="button"
               value="existing user"
               onclick="javascript:location.hash='driver-login-section'"
@@ -106,96 +104,239 @@
       >
         <span data-inner-driver-name>n/a</span>
 
+        <div id="upcoming-request-banner-wrapper">
+          <div class="content-injection"></div>
+        </div>
+
         <div class="flex-col">
-          <button class="navigate-btn-request-parking mb-3 button">
-            Request Parking
-          </button>
-          <button class="navigate-btn-manage-requests mb-3 button">
+          <button class="navigate-btn-driver-manage-requests-section mb-3">
             Manage Requests
           </button>
-          <button class="navigate-btn-manage-payment mb-3 button">
+          <button class="navigate-btn-manage-payment-section mb-3">
             Manage Payment
           </button>
-          <button class="navigate-btn-driver-messages mb-3 button">Messages</button>
-          <button class="navigate-btn-access-lot mb-3 button">Arrive</button>
+          <button class="navigate-btn-driver-messages-section mb-3">
+            Messages
+          </button>
+          <button class="navigate-btn-check-in hidden mb-3" disabled>
+            Check In
+          </button>
+          <button class="navigate-btn-check-out hidden mb-3" disabled>
+            Check Out
+          </button>
+        </div>
+      </div>
+
+      <!-- driver request management section -->
+      <div
+        id="driver-request-management-section"
+        class="hidden page-section flex-col-center max-dimensions"
+      >
+        <span data-inner-driver-name>n/a</span>
+
+        <div><div class="h2 mb-3">Manage Request</div></div>
+
+        <div class="mb-3">
+          <button id="action-btn-driver-request-registration">
+            New Request
+          </button>
+          <button id="action-btn-driver-request-history">History</button>
+        </div>
+
+        <div id="driver-request-history-tab">
+          <div class="content-injection bordered"></div>
+          <div class="request-color-key-wrapper">
+            <span class="request-color-key request-pending">pending</span>
+            <span class="request-color-key request-accepted">accepted</span>
+            <span class="request-color-key request-rejected">rejected</span>
+            <span class="request-color-key request-inuse">in-use</span>
+            <span class="request-color-key request-expired">expired</span>
+          </div>
+        </div>
+
+        <div id="driver-request-registration-tab" class="hidden bordered">
+          <div class="content-injection flex-col mb-3"></div>
+
+          <form id="register-form-request" class="flex-col">
+            <div class="mb-3 flex-col">
+              <label for="register-form-request-lot-uid"> Parking Lots </label>
+              <select
+                id="register-form-request-lot-uid"
+                name="lot-uid"
+                required
+              >
+                <option value="">--Please choose an option--</option>
+              </select>
+            </div>
+            <div class="mb-3 flex-col">
+              <label for="register-form-request-payment-uid"> Payment </label>
+              <select
+                id="register-form-request-payment-uid"
+                name="payment-uid"
+                required
+              >
+                <option value="">--Please choose an option--</option>
+              </select>
+            </div>
+            <div class="mb-3 flex-col">
+              <label for="register-form-request-start"> Start </label>
+              <input
+                id="register-form-request-start"
+                type="datetime-local"
+                name="start"
+                required
+              />
+            </div>
+            <div class="mb-3 flex-col">
+              <label for="register-form-request-end"> End </label>
+              <input
+                id="register-form-request-end"
+                type="datetime-local"
+                name="end"
+                required
+              />
+            </div>
+            <div
+              class="register-request-price-container mb-3"
+              data-inner-request-cost
+            >
+              <span class="register-request-price-text">£ 0.0</span>
+            </div>
+            <input type="submit" value="Pay" />
+          </form>
+        </div>
+        <div class="driver-nav-btn-group">
+          <button class="navigate-btn-manage-payment-section mb-3">
+            Manage Payment
+          </button>
+          <button class="navigate-btn-driver-messages-section mb-3">
+            Messages
+          </button>
         </div>
       </div>
 
       <!-- payment registration section -->
-      <div class="hidden">
-        <form id="register-form-payment" >
-          <label for="register-form-payment-name"> Name </label>
-          <input id="register-form-payment-name" type="text" name="name" />
-          <label for="register-form-payment-card-no"> Card No. </label>
-          <input
-            id="register-form-payment-card-no"
-            type="text"
-            name="card-no"
-          />
-          <label for="register-form-payment-ccv"> CCV </label>
-          <input id="register-form-payment-ccv" type="text" name="ccv" />
-          <label for="register-form-payment-expiry-date"> Expiry Date </label>
-          <input
-            id="register-form-payment-expiry-date"
-            type="month"
-            name="expiry-date"
-          />
-          <input type="submit" value="register" />
+      <div
+        id="driver-payment-management-section"
+        class="hidden page-section flex-col-center max-dimensions"
+      >
+        <span data-inner-driver-name>n/a</span>
+
+        <div class="h2 mb-3">Manage Payments</div>
+
+        <div class="content-injection mb-3 bordered"></div>
+
+        <form id="register-form-payment" class="flex-col bordered">
+          <div class="flex-col mb-3">
+            <label for="register-form-payment-name"> Name </label>
+            <input
+              id="register-form-payment-name"
+              type="text"
+              name="name"
+              required
+            />
+          </div>
+          <div class="flex-col mb-3">
+            <label for="register-form-payment-card-no"> Card No. </label>
+            <input
+              id="register-form-payment-card-no"
+              type="text"
+              name="card-no"
+              required
+            />
+          </div>
+          <div class="flex-col mb-3">
+            <label for="register-form-payment-ccv"> CCV </label>
+            <input
+              id="register-form-payment-ccv"
+              type="text"
+              name="ccv"
+              required
+            />
+          </div>
+          <div class="flex-col mb-3">
+            <label for="register-form-payment-expiry-date"> Expiry Date </label>
+            <input
+              id="register-form-payment-expiry-date"
+              type="month"
+              name="expiry-date"
+              required
+            />
+          </div>
+          <input type="submit" value="add" />
         </form>
+
+        <div class="driver-nav-btn-group">
+          <button class="navigate-btn-driver-manage-requests-section mb-3">
+            Manage Requests
+          </button>
+          <button class="navigate-btn-driver-messages-section mb-3">
+            Messages
+          </button>
+        </div>
       </div>
 
-      <!-- request registration section -->
-      <div class="hidden">
-        <form id="register-form-request">
-          <label for="register-form-request-lot-uid"> Parking Lots </label>
-          <select id="register-form-request-lot-uid" name="lot-uid">
-            <option value="">--Please choose an option--</option>
-          </select>
-          <label for="register-form-request-payment-uid"> Payment </label>
-          <select id="register-form-request-payment-uid" name="payment-uid">
-            <option value="">--Please choose an option--</option>
-          </select>
-          <label for="register-form-request-start"> Start </label>
-          <input
-            id="register-form-request-start"
-            type="datetime-local"
-            name="start"
-          />
-          <label for="register-form-request-end"> End </label>
-          <input
-            id="register-form-request-end"
-            type="datetime-local"
-            name="end"
-          />
-          <input type="submit" value="send" />
-        </form>
-      </div>
+      <!-- Driver message section -->
+      <div
+        id="driver-messages-section"
+        class="hidden page-section flex-col-center max-dimensions"
+      >
+        <span data-inner-driver-name>n/a</span>
 
-      <!-- send a message to admin section -->
-      <div class="hidden">
-        <form id="send-form-message-driver">
-          <label for="send-form-message-driver-title"> Title </label>
-          <input id="send-form-message-driver-title" name="title" type="text" />
-          <label for="send-form-message-driver-content"> Message </label>
-          <textarea
-            id="send-form-message-driver-content"
-            cols="30"
-            rows="5"
-            name="content"
-          ></textarea>
-          <input type="submit" value="send" />
-        </form>
+        <div class="h2 mb-3">Driver Messages</div>
+
+        <div class="mb-3">
+          <button id="action-btn-driver-new-message">New Message</button>
+          <button id="action-btn-driver-inbox-messages">Inbox</button>
+        </div>
+
+        <div id="driver-inbox-messages-tab">
+          <div class="content-injection bordered"></div>
+        </div>
+
+        <div id="driver-new-message-tab" class="hidden bordered">
+          <form id="send-form-message-driver">
+            <div class="flex-col mb-3">
+              <label for="send-form-message-driver-title"> Title </label>
+              <input
+                id="send-form-message-driver-title"
+                name="title"
+                type="text"
+                required
+              />
+            </div>
+            <div class="flex-col mb-3">
+              <label for="send-form-message-driver-content"> Message </label>
+              <textarea
+                id="send-form-message-driver-content"
+                cols="30"
+                rows="5"
+                name="content"
+                required
+              ></textarea>
+            </div>
+            <input type="submit" value="send" />
+          </form>
+        </div>
+        <div class="driver-nav-btn-group">
+          <button class="navigate-btn-driver-manage-requests-section mb-3">
+            Manage Requests
+          </button>
+          <button class="navigate-btn-manage-payment-section mb-3">
+            Manage Payment
+          </button>
+        </div>
       </div>
 
       <!-- helpers -->
-      <div id="notification"></div>
-      <div id="busy-spinner" class="hidden"></div>
       <button
-        class="hidden navigate-btn-driver-home button"
+        class="hidden navigate-btn-driver-home"
         onclick="javascript:location.hash='driver-home-section'"
       >
         Home
       </button>
+      <div id="busy-spinner" class="hidden"></div>
+      <div id="notification"></div>
     </div>
 
     <script type="module" src="script/pms.js"></script>
