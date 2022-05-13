@@ -23,41 +23,34 @@ body * {
 button,
 input[type="button"],
 input[type="submit"] {
-  white-space: nowrap;
-  text-transform: capitalize;
-  text-align: center;
-  outline: 0;
-  grid-gap: 8px;
-  align-items: center;
-  background: 0 0;
-  border: 1px solid #000;
-  border-radius: 4px;
-  cursor: pointer;
-  display: inline-flex;
-  flex-shrink: 0;
-  font-size: 16px;
-  gap: 8px;
-  justify-content: center;
-  line-height: 1.5;
-  overflow: hidden;
-  padding: 5px 10px;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  transition: all 0.14s ease-out;
-  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 15px;
+  background-color: #5B6970;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-width: 0px;
+  border-radius: 8px;
+  padding: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-button:hover,
+//*button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover {
   box-shadow: 4px 4px 0 #000;
   transform: translate(-4px, -4px);
-}
+} 
 button:focus-visible,
 input[type="button"]:focus-visible,
 input[type="submit"]:focus-visible {
   outline-offset: 1px;
-}
+}*//
 
 button:disabled,
 input[type="button"]:disabled,
