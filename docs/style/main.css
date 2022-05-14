@@ -376,12 +376,12 @@ select:focus {
 
 .register-request-absent-payment {
   display: inline-block;
-  border: solid 1px red;
-  background-color: #ff9696;
-  padding: 5px;
+  background-color: #db5151;
+  padding: 6px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 15px;
   color: white;
+  text-align: center;
 }
 
 .upcoming-request-banner-injection {
@@ -397,9 +397,9 @@ select:focus {
 .navigate-btn-check-in:disabled,
 .navigate-btn-check-out:disabled,
 .upcoming-request-banner-injection-disabled {
-  color: gray;
-  background-color: lightgray;
-  border: solid 3px gray;
+  color: white;
+  background-color: #5B6970;
+  border: solid 0px gray;
 }
 .upcoming-request-banner-injection-disabled {
   border: solid 1px gray;
