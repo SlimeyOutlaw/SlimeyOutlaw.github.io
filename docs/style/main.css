@@ -40,12 +40,11 @@ input[type="submit"] {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
-/*button:hover,
+button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover {
-  box-shadow: 4px 4px 0 #000;
-  transform: translate(-4px, -4px);
-} 
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+} /*
 button:focus-visible,
 input[type="button"]:focus-visible,
 input[type="submit"]:focus-visible {
@@ -270,10 +269,15 @@ select:focus {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: var(--content-width);
 }
 #action-form-admin-requests-selection input[type="checkbox"] {
   margin-bottom: 10px;
+}
+
+.action-btn-driver-ban-toggle{
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 #driver-management-section .content-injection {
@@ -563,6 +567,9 @@ select:focus {
   padding: 7.5px 10px;
   border-radius: 10px;
   text-transform: capitalize;
+  font-size: 40px;
+  letter-spacing: 4px;
+  color: white;
 }
 
 .navigate-btn-admin-home,
@@ -587,19 +594,16 @@ select:focus {
 .grid-elem-spot-id[data-state="opened"],
 .spot-opened::before {
   background-color: springgreen;
-  box-shadow: none !important;
   transform: none !important;
 }
 .grid-elem-spot-id[data-state="occupied"],
 .spot-occupied::before {
   background-color: tomato;
-  box-shadow: none !important;
   transform: none !important;
 }
 .grid-elem-spot-id[data-state="reserved"],
 .spot-reserved::before {
   background-color: yellow;
-  box-shadow: none !important;
   transform: none !important;
 }
 .grid-elem-spot-id[data-selected="true"] {

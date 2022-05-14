@@ -248,11 +248,11 @@
         id="admin-requests-section"
         class="hidden page-section flex-col-center max-dimensions"
       >
-        <span data-inner-admin-name>n/a</span>
+        <span class="headerText" data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3">Pending Requests</div>
+        <div class="mb-3">Pending Requests</div>
 
-        <form id="action-form-admin-requests-selection" class="bordered">
+        <form id="action-form-admin-requests-selection" class="form">
           <div class="content-injection"></div>
           <div>
             <input
@@ -293,9 +293,9 @@
       >
         <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3">Manage Users</div>
+        <div class="mb-3 headerText">Manage Users</div>
 
-        <div class="content-injection bordered"></div>
+        <div class="content-injection form"></div>
 
         <div class="admin-nav-btn-group">
           <button class="navigate-btn-create-lot-section">Create Lot</button>
@@ -314,7 +314,7 @@
       >
         <span data-inner-admin-name>n/a</span>
 
-        <div class="h2 mb-3">Admin Messages</div>
+        <div class="mb-3 headerText">Admin Messages</div>
 
         <div class="mb-3">
           <button id="action-btn-admin-new-message">New Message</button>
@@ -322,10 +322,10 @@
         </div>
 
         <div id="admin-inbox-messages-tab">
-          <div class="content-injection bordered"></div>
+          <div class="content-injection form"></div>
         </div>
 
-        <div id="admin-new-message-tab" class="hidden bordered">
+        <div id="admin-new-message-tab" class="hidden form">
           <form id="send-form-message-admin">
             <div class="flex-col mb-3">
               <label for="send-form-message-admin-to-user-uid">To: </label>
