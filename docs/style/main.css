@@ -44,12 +44,7 @@ button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover {
   box-shadow: 0 0 15px rgba(0,0,0,0.9);
-} /*
-button:focus-visible,
-input[type="button"]:focus-visible,
-input[type="submit"]:focus-visible {
-  outline-offset: 1px;
-}*/
+} 
 
 button:disabled,
 input[type="button"]:disabled,
@@ -129,38 +124,6 @@ select:focus {
   color: white;
   margin-bottom: 2;
 }
-
-/*.button{
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  font-size: 15px;
-  background-color: #5B6970;
-  margin-top: 35px;
-  margin-bottom: 15px;
-  margin-right: 5px;
-  margin-left: 5px;
-  border-width: 0px;
-  border-radius: 8px;
-  padding: 7px;
-  padding-left: 15px;
-  padding-right: 15px;
-  width: auto;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-} 
-
-.columnButton{
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  font-size: 15px;
-  background-color: #5B6970;
-  border-width: 0px;
-  border-radius: 8px;
-  padding: 7px;
-  padding-left: 15px;
-  padding-right: 15px;
-  width: auto;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-} */
 
 .homeButton{
   margin-left: 950px;
