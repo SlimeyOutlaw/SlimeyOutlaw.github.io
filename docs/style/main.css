@@ -412,10 +412,10 @@ select:focus {
   font-size: 25px;
   font-weight: 700;
   background-color: white;
-  border: dashed 1px #cbc3c3;
   border-radius: 5px;
   height: 75px;
   text-align: center;
+  color: black;
 }
 
 #driver-request-history-tab .content-injection {
